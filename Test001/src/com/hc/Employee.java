@@ -7,4 +7,6 @@ package com.hc;
  * @Version: 1.0
  **/
 public class Employee {
+    private int id;
+    private String name;
 }
