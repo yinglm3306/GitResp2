@@ -15,9 +15,20 @@ public class Main {
         Msg msg = new Msg();
         msg.setMsg("大家好:), <script>, 欢迎访问yinglm.com, 大家都是996 ");
 
-        List<Filter> filters=new ArrayList<>();
-        filters.add(new HTMLFilter());
-        filters.add(new SensitiveFilter());
+//        List<Filter> filters=new ArrayList<>();
+
+        FilterChain fc = new FilterChain();
+        fc.add(new HTMLFilter()).add(new SensitiveFilter());
+
+        FilterChain fc2= new FilterChain();
+        fc2.add(new FaceFilter()).add(new URLFilter());
+
+        fc.add(fc2);
+        fc.doFilter(msg);
+
+
+//        filters.add(new HTMLFilter());
+//        filters.add(new SensitiveFilter());
 
         //处理msg
 //        String r= msg.getMsg();
@@ -31,10 +42,10 @@ public class Main {
 //        new HTMLFilter().doFilter(msg);
 //        new SensitiveFilter().doFilter(msg);
 
-        for(Filter f :filters){
-            f.doFilter(msg);
-
-        }
+//        for(Filter f :filters){
+//            f.doFilter(msg);
+//
+//        }
         System.out.println(msg);
 
 
@@ -85,5 +96,43 @@ class SensitiveFilter implements Filter{
         r=r.replaceAll("996","955");
         m.setMsg(r);
 
+    }
+}
+
+class FaceFilter implements Filter{
+
+    @Override
+    public void doFilter(Msg m) {
+        String r= m.getMsg();
+        r=r.replace(":)","^V^");
+        m.setMsg(r);
+
+    }
+}
+
+class URLFilter implements Filter{
+
+    @Override
+    public void doFilter(Msg m) {
+        String r= m.getMsg();
+        r=r.replace("yinglm.com","http://www.yinglm.com");
+        m.setMsg(r);
+
+    }
+}
+
+
+class FilterChain implements Filter{
+    List<Filter> filters=new ArrayList<>();
+    public FilterChain add(Filter f){
+        filters.add(f);
+        return this;
+    }
+
+    public void doFilter(Msg msg){
+        for(Filter f :filters){
+            f.doFilter(msg);
+
+        }
     }
 }
