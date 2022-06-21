@@ -73,17 +73,18 @@ class  Msg{
 }
 
 interface  Filter{
-    void doFilter(Msg m);
+    boolean doFilter(Msg m);
 }
 
 class HTMLFilter implements Filter{
 
     @Override
-    public void doFilter(Msg m) {
+    public boolean doFilter(Msg m) {
         String r= m.getMsg();
         r= r.replace('<','[') ;
         r=r.replace('>',']');
         m.setMsg(r);
+        return true;
 
     }
 }
@@ -91,10 +92,11 @@ class HTMLFilter implements Filter{
 class SensitiveFilter implements Filter{
 
     @Override
-    public void doFilter(Msg m) {
+    public boolean doFilter(Msg m) {
         String r= m.getMsg();
         r=r.replaceAll("996","955");
         m.setMsg(r);
+        return false;
 
     }
 }
@@ -102,10 +104,11 @@ class SensitiveFilter implements Filter{
 class FaceFilter implements Filter{
 
     @Override
-    public void doFilter(Msg m) {
+    public boolean doFilter(Msg m) {
         String r= m.getMsg();
         r=r.replace(":)","^V^");
         m.setMsg(r);
+        return  true;
 
     }
 }
@@ -113,10 +116,11 @@ class FaceFilter implements Filter{
 class URLFilter implements Filter{
 
     @Override
-    public void doFilter(Msg m) {
+    public boolean doFilter(Msg m) {
         String r= m.getMsg();
         r=r.replace("yinglm.com","http://www.yinglm.com");
         m.setMsg(r);
+        return true;
 
     }
 }
@@ -129,10 +133,11 @@ class FilterChain implements Filter{
         return this;
     }
 
-    public void doFilter(Msg msg){
+    public boolean doFilter(Msg msg){
         for(Filter f :filters){
-            f.doFilter(msg);
+            if(!f.doFilter(msg)) return false;
 
         }
+        return true;
     }
 }
