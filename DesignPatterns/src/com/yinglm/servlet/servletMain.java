@@ -13,9 +13,9 @@ public class servletMain {
     public static void main(String[] args) {
 
         Request request = new Request();
-        request.str="request";
+        request.str="大家好:), <script>, 欢迎访问yinglm.com, 大家都是996";
         Response response= new Response();
-        response.str= "response";
+        response.str= "";
 
 //        Msg msg = new Msg();
 //        msg.setMsg("大家好:), <script>, 欢迎访问yinglm.com, 大家都是996 ");
