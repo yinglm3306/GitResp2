@@ -13,7 +13,7 @@ public class servletMain {
     public static void main(String[] args) {
 
         Request request = new Request();
-        request.str="request";
+        request.str="大家好:), <script>, 欢迎访问yinglm.com, 大家都是996";
         Response response= new Response();
         response.str= "response";
 
@@ -51,7 +51,7 @@ public class servletMain {
 //            f.doFilter(msg);
 //
 //        }
-        System.out.println();
+        System.out.println(request.str);
 
 
     }
@@ -92,11 +92,12 @@ class HTMLFilter implements Filter {
 
     @Override
     public boolean doFilter(Request request,Response response) {
+        request.str= request.str.replaceAll("<","[").replaceAll(">","]");
 //        String r= m.getMsg();
 //        r= r.replace('<','[') ;
 //        r=r.replace('>',']');
 //        m.setMsg(r);
-        return false;
+        return true;
 
     }
 }

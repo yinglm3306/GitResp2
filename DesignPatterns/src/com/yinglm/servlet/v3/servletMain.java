@@ -1,4 +1,4 @@
-package com.yinglm.servlet.v;
+package com.yinglm.servlet.v3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,8 @@ public class servletMain {
         Request request = new Request();
         request.str="大家好:), <script>, 欢迎访问yinglm.com, 大家都是996";
         Response response= new Response();
-        response.str= "";
+        response.str= "response";
+
         FilterChain chain = new FilterChain();
         chain.add(new HTMLFilter()).add(new SensitiveFilter());
         chain.doFilter(request,response,chain);
@@ -42,6 +43,7 @@ class HTMLFilter implements Filter {
     @Override
     public boolean doFilter(Request request, Response response,FilterChain chain) {
         request.str= request.str.replaceAll("<","[").replaceAll(">","]");
+        chain.doFilter(request,response,chain);
         response.str+= "--HTMLFilter()";
 //        String r= m.getMsg();
 //        r= r.replace('<','[') ;
@@ -57,6 +59,7 @@ class SensitiveFilter implements Filter {
     @Override
     public boolean doFilter(Request request, Response response,FilterChain chain) {
         request.str= request.str.replaceAll("996","955");
+        chain.doFilter(request,response,chain);
         response.str+= "--SensitiveFilter()";
 //        String r= m.getMsg();
 //        r=r.replaceAll("996","955");
@@ -67,10 +70,9 @@ class SensitiveFilter implements Filter {
 }
 
 
-
 class FilterChain implements Filter {
     List<Filter> filters=new ArrayList<>();
-    int index=0;
+    int index=0 ;
 
     public FilterChain add(Filter f){
         filters.add(f);
@@ -78,10 +80,11 @@ class FilterChain implements Filter {
     }
 
     public boolean doFilter(Request request, Response response,FilterChain chain){
-        if(index == filters.size()) return false;
+
+        if(index==filters.size()) return false ;
+
         Filter f= filters.get(index);
         index++;
-
-        return f.doFilter(request,response, chain);
+        return f.doFilter(request,response,chain);
     }
 }
