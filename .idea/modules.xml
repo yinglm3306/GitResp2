@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DesignPatterns/DesignPatterns.iml" filepath="$PROJECT_DIR$/DesignPatterns/DesignPatterns.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ObserverPJ/ObserverPJ.iml" filepath="$PROJECT_DIR$/ObserverPJ/ObserverPJ.iml" />
       <module fileurl="file://$PROJECT_DIR$/Test001/Test001.iml" filepath="$PROJECT_DIR$/Test001/Test001.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestGit.iml" filepath="$PROJECT_DIR$/TestGit.iml" />
       <module fileurl="file://$PROJECT_DIR$/hc_AbstractFactory/hc_AbstractFactory.iml" filepath="$PROJECT_DIR$/hc_AbstractFactory/hc_AbstractFactory.iml" />
